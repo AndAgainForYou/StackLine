@@ -1,0 +1,69 @@
+{
+  "@@locale": "en",
+  "appTitle": "Stackline",
+  "homeTagline": "Place blocks. Clear lines. Beat your record.",
+  "highScore": "High Score",
+  "play": "Play",
+  "gameOver": "Game Over",
+  "scoreLabel": "Score",
+  "gameOverScore": "Score: {score}",
+  "@gameOverScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "playAgain": "Play Again",
+  "retry": "Retry",
+  "best": "Best",
+  "combo": "Combo",
+  "scoreGain": "+{points}",
+  "@scoreGain": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "next": "Next",
+  "themesTooltip": "Themes",
+  "chooseTheme": "Choose theme",
+  "languageTooltip": "Language",
+  "chooseLanguage": "Choose language",
+  "themeWhite": "White",
+  "themeBlack": "Black",
+  "themeOcean": "Ocean",
+  "themeSunset": "Sunset",
+  "themeForest": "Forest",
+  "themeRose": "Rose",
+  "themeAmethyst": "Amethyst",
+  "themeSky": "Sky",
+  "cancel": "Cancel",
+  "exitGameTitle": "Leave game?",
+  "exitGameMessage": "Your current score is {score}. Save your progress or discard it?",
+  "@exitGameMessage": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "exitGameSave": "Save progress",
+  "exitGameDiscard": "Discard",
+  "continueGame": "Continue",
+  "newGame": "New game",
+  "howToPlay": "How to play",
+  "aboutTitle": "About the game",
+  "aboutIntro": "Stackline is a block puzzle inspired by Tetris — but pieces don't fall from the top. You choose where each shape goes and build your own strategy on a 10×10 board.",
+  "aboutPlaceTitle": "Place shapes",
+  "aboutPlaceBody": "Drag pieces from the bottom tray onto the board. You always have three shapes to choose from, with six more waiting in the preview row.",
+  "aboutClearTitle": "Clear lines",
+  "aboutClearBody": "Fill an entire row or column to clear it from the board and earn points.",
+  "aboutComboTitle": "Build combos",
+  "aboutComboBody": "Clear multiple lines at once to increase your combo multiplier and score bigger rewards.",
+  "aboutScoreTitle": "Beat your record",
+  "aboutScoreBody": "Every placement and every cleared line adds to your score. Your best result is saved automatically.",
+  "aboutEndTitle": "Game over",
+  "aboutEndBody": "The game ends when none of the available shapes can fit on the board. Leave anytime to save your progress and continue later."
+}
