@@ -32,6 +32,11 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String gameOverBest(int score) {
+    return 'Recorde: $score';
+  }
+
+  @override
   String get playAgain => 'Jogar novamente';
 
   @override
@@ -88,6 +93,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get themeSky => 'Céu';
 
   @override
+  String get themeNeon => 'Neon';
+
+  @override
   String get cancel => 'Cancelar';
 
   @override
@@ -106,6 +114,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get continueGame => 'Continuar';
+
+  @override
+  String get gameOverMainMenu => 'Menu principal';
 
   @override
   String get newGame => 'Novo jogo';
@@ -154,4 +165,23 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get aboutEndBody =>
       'O jogo termina quando nenhuma forma disponível cabe no tabuleiro. Você pode sair a qualquer momento e salvar seu progresso.';
+
+  @override
+  String get settingsTitle => 'Configurações';
+
+  @override
+  String get sound => 'Som';
+
+  @override
+  String get exitToMenu => 'Sair';
+
+  @override
+  String get privacyPolicy => 'Política de privacidade';
+
+  @override
+  String get privacyPolicyIntro =>
+      'Esta política descreve como o Stackline trata informações quando você usa o aplicativo.';
+
+  @override
+  String get privacyPolicyUpdated => 'Última atualização: 20 de maio de 2026';
 }

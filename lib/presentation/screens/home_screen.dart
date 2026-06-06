@@ -5,8 +5,8 @@ import '../../data/local_storage_service.dart';
 import '../../features/game/bloc/game_cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../presentation/services/sound_service.dart';
-import '../../presentation/widgets/locale_picker_button.dart';
-import '../../presentation/widgets/theme_picker_button.dart';
+import '../../presentation/widgets/home_background.dart';
+import '../../presentation/widgets/home_settings_overlay.dart';
 import 'about_screen.dart';
 import 'game_screen.dart';
 
@@ -19,14 +19,29 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   late int _highScore;
   late bool _hasSavedGame;
+  bool _settingsVisible = false;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _refreshStats();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setState(_refreshStats);
+    }
   }
 
   void _refreshStats() {
@@ -35,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _openGame({required bool continueSaved}) async {
-    final sound = SoundService();
+    final sound = SoundService()
+      ..enabled = widget.storage.getSoundEnabled();
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => BlocProvider(
@@ -51,7 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
             }
             return cubit;
           },
-          child: GameScreen(soundService: sound),
+          child: GameScreen(
+            soundService: sound,
+            storage: widget.storage,
+          ),
         ),
       ),
     );
@@ -66,95 +85,116 @@ class _HomeScreenState extends State<HomeScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
+        children: [
+          // ── Animated background ──────────────────────────────
+          const Positioned.fill(child: HomeBackground()),
+
+          // ── Main content ─────────────────────────────────────
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  TextButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => const AboutScreen(),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.info_outline_rounded, size: 20),
-                    label: Text(l10n.howToPlay),
-                  ),
-                  const Row(
-                    mainAxisSize: MainAxisSize.min,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      LocalePickerButton(),
-                      ThemePickerButton(),
+                      TextButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => const AboutScreen(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.info_outline_rounded,
+                            size: 20),
+                        label: Text(l10n.howToPlay),
+                      ),
+                      IconButton(
+                        tooltip: l10n.settingsTitle,
+                        icon: const Icon(Icons.settings_rounded),
+                        onPressed: () =>
+                            setState(() => _settingsVisible = true),
+                      ),
                     ],
                   ),
+                  const Spacer(),
+                  Text(
+                    l10n.appTitle,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.displayMedium?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -1,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.homeTagline,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color:
+                          theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  _StatCard(
+                    label: l10n.highScore,
+                    value: _highScore.toString(),
+                  ),
+                  const Spacer(flex: 2),
+                  if (_hasSavedGame) ...[
+                    FilledButton(
+                      onPressed: () => _openGame(continueSaved: true),
+                      style: FilledButton.styleFrom(
+                        padding:
+                            const EdgeInsets.symmetric(vertical: 18),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      child: Text(l10n.continueGame),
+                    ),
+                    const SizedBox(height: 12),
+                    OutlinedButton(
+                      onPressed: () => _openGame(continueSaved: false),
+                      style: OutlinedButton.styleFrom(
+                        padding:
+                            const EdgeInsets.symmetric(vertical: 18),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      child: Text(l10n.newGame),
+                    ),
+                  ] else
+                    FilledButton(
+                      onPressed: () => _openGame(continueSaved: false),
+                      style: FilledButton.styleFrom(
+                        padding:
+                            const EdgeInsets.symmetric(vertical: 18),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      child: Text(l10n.play),
+                    ),
                 ],
               ),
-              const Spacer(),
-              Text(
-                l10n.appTitle,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.displayMedium?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -1,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                l10n.homeTagline,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                ),
-              ),
-              const SizedBox(height: 32),
-              _StatCard(
-                label: l10n.highScore,
-                value: _highScore.toString(),
-              ),
-              const Spacer(flex: 2),
-              if (_hasSavedGame) ...[
-                FilledButton(
-                  onPressed: () => _openGame(continueSaved: true),
-                  style: FilledButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: Text(l10n.continueGame),
-                ),
-                const SizedBox(height: 12),
-                OutlinedButton(
-                  onPressed: () => _openGame(continueSaved: false),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: Text(l10n.newGame),
-                ),
-              ] else
-                FilledButton(
-                  onPressed: () => _openGame(continueSaved: false),
-                  style: FilledButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: Text(l10n.play),
-                ),
-            ],
+            ),
           ),
-        ),
+
+          // ── Settings overlay ─────────────────────────────────
+          if (_settingsVisible)
+            Positioned.fill(
+              child: HomeSettingsOverlay(
+                storage: widget.storage,
+                onClose: () => setState(() => _settingsVisible = false),
+              ),
+            ),
+        ],
       ),
     );
   }

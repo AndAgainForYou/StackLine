@@ -10,32 +10,35 @@ double boardCellSizeForWidth(double availableWidth) {
   return boardSizeForWidth(availableWidth) / GameConstants.boardSize;
 }
 
-/// Snaps a piece to the grid cell that is under the user's finger.
+/// Snaps a piece to the grid cell that best aligns with the user's finger.
 ///
-/// Because the drag anchor is placed at [anchorFraction] of the piece's
-/// size, [feedbackTopLeft] (= DragTargetDetails.offset) is offset from
-/// the actual finger position. This function reconstructs the finger cell
-/// and places the piece so that the correct cell within the piece sits
-/// exactly under the finger.
-///
-/// [feedbackTopLeft] = pointerGlobal − (anchorFraction × pieceSize × cellSize)
+/// [feedbackTopLeft] = DragTargetDetails.offset = top-left of the feedback
+/// widget in global coordinates. The anchor fractions describe where within
+/// the piece the finger sits:
+///   X: 0.5  → piece centred horizontally on finger
+///   Y: 1.0  → finger at bottom edge of piece (piece entirely above finger)
 ({int row, int col}) snapPieceToGrid({
   required Offset boardTopLeft,
   required double cellSize,
   required Offset feedbackTopLeft,
   required int pieceWidth,
   required int pieceHeight,
-  double anchorFraction = GameConstants.dragAnchorFraction,
+  double anchorFractionX = GameConstants.dragAnchorFractionX,
+  double anchorFractionY = GameConstants.dragAnchorFractionY,
 }) {
   final local = feedbackTopLeft - boardTopLeft;
 
   // Reconstruct which board cell is under the finger.
-  final fingerCol = (local.dx / cellSize + anchorFraction * pieceWidth).floor();
-  final fingerRow = (local.dy / cellSize + anchorFraction * pieceHeight).floor();
+  final fingerCol =
+      (local.dx / cellSize + anchorFractionX * pieceWidth).floor();
+  final fingerRow =
+      (local.dy / cellSize + anchorFractionY * pieceHeight).floor();
 
-  // The finger lands on cell floor(anchorFraction × pieceSize) within the piece.
-  final anchorCellCol = (anchorFraction * pieceWidth).floor();
-  final anchorCellRow = (anchorFraction * pieceHeight).floor();
+  // Compute how many cells the anchor is offset from the piece's top-left.
+  // No clamping: anchor fractions > 1.0 simply shift the piece further
+  // away from the finger, which is what allows values like 1.2 to work.
+  final anchorCellCol = (anchorFractionX * pieceWidth).floor();
+  final anchorCellRow = (anchorFractionY * pieceHeight).floor();
 
   return (row: fingerRow - anchorCellRow, col: fingerCol - anchorCellCol);
 }

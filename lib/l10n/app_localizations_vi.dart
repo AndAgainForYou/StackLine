@@ -32,6 +32,11 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String gameOverBest(int score) {
+    return 'Kỷ lục: $score';
+  }
+
+  @override
   String get playAgain => 'Chơi lại';
 
   @override
@@ -88,6 +93,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get themeSky => 'Bầu trời';
 
   @override
+  String get themeNeon => 'Neon';
+
+  @override
   String get cancel => 'Hủy';
 
   @override
@@ -106,6 +114,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get continueGame => 'Tiếp tục';
+
+  @override
+  String get gameOverMainMenu => 'Menu chính';
 
   @override
   String get newGame => 'Trò chơi mới';
@@ -152,4 +163,23 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get aboutEndBody =>
       'Game kết thúc khi không còn khối nào đặt được. Bạn có thể thoát bất cứ lúc nào và lưu tiến trình.';
+
+  @override
+  String get settingsTitle => 'Cài đặt';
+
+  @override
+  String get sound => 'Âm thanh';
+
+  @override
+  String get exitToMenu => 'Thoát';
+
+  @override
+  String get privacyPolicy => 'Chính sách bảo mật';
+
+  @override
+  String get privacyPolicyIntro =>
+      'Chính sách này mô tả cách Stackline xử lý thông tin khi bạn sử dụng ứng dụng.';
+
+  @override
+  String get privacyPolicyUpdated => 'Cập nhật lần cuối: 20 tháng 5, 2026';
 }

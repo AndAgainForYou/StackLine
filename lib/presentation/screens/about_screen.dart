@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
+import 'privacy_policy_screen.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -51,6 +52,24 @@ class AboutScreen extends StatelessWidget {
               icon: Icons.flag_outlined,
               title: l10n.aboutEndTitle,
               body: l10n.aboutEndBody,
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const PrivacyPolicyScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.privacy_tip_outlined),
+              label: Text(l10n.privacyPolicy),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
             ),
           ],
         ),

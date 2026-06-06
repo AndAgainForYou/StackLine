@@ -5,6 +5,7 @@ class SoundService {
   SoundService() {
     _placePlayer = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
     _clearPlayer = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
+    _clearComboPlayer = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
     _invalidPlayer = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
     _pickupPlayer = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
     _rotatePlayer = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
@@ -13,6 +14,7 @@ class SoundService {
 
   late final AudioPlayer _placePlayer;
   late final AudioPlayer _clearPlayer;
+  late final AudioPlayer _clearComboPlayer;
   late final AudioPlayer _invalidPlayer;
   late final AudioPlayer _pickupPlayer;
   late final AudioPlayer _rotatePlayer;
@@ -21,18 +23,33 @@ class SoundService {
   bool enabled = true;
   bool _disposed = false;
 
-  Future<void> playPlace() => _play(_placePlayer, AssetSource('sounds/place.wav'));
-  Future<void> playClear() => _play(_clearPlayer, AssetSource('sounds/clear.wav'));
-  Future<void> playInvalid() => _play(_invalidPlayer, AssetSource('sounds/invalid.wav'));
-  Future<void> playPickup() => _play(_pickupPlayer, AssetSource('sounds/pickup.wav'));
-  Future<void> playRotate() => _play(_rotatePlayer, AssetSource('sounds/rotate.wav'));
-  Future<void> playGameOver() => _play(_gameOverPlayer, AssetSource('sounds/gameover.wav'));
+  Future<void> playPlace() =>
+      _play(_placePlayer, AssetSource('sounds/place.wav'));
 
-  Future<void> _play(AudioPlayer player, AssetSource source) async {
+  /// [linesCleared] ≥ 2 triggers the richer combo chord.
+  Future<void> playClear({int linesCleared = 1}) {
+    if (linesCleared >= 2) {
+      return _play(_clearComboPlayer,
+          AssetSource('sounds/clear_combo.wav'), volume: 0.70);
+    }
+    return _play(_clearPlayer, AssetSource('sounds/clear.wav'), volume: 0.60);
+  }
+
+  Future<void> playInvalid() =>
+      _play(_invalidPlayer, AssetSource('sounds/invalid.wav'));
+  Future<void> playPickup() =>
+      _play(_pickupPlayer, AssetSource('sounds/pickup.wav'));
+  Future<void> playRotate() =>
+      _play(_rotatePlayer, AssetSource('sounds/rotate.wav'));
+  Future<void> playGameOver() =>
+      _play(_gameOverPlayer, AssetSource('sounds/gameover.wav'));
+
+  Future<void> _play(AudioPlayer player, AssetSource source,
+      {double volume = 0.6}) async {
     if (!enabled || _disposed) return;
     try {
       await player.stop();
-      await player.play(source, volume: 0.6);
+      await player.play(source, volume: volume);
     } catch (e) {
       debugPrint('Sound play failed: $e');
     }
@@ -46,6 +63,7 @@ class SoundService {
     for (final player in [
       _placePlayer,
       _clearPlayer,
+      _clearComboPlayer,
       _invalidPlayer,
       _pickupPlayer,
       _rotatePlayer,

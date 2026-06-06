@@ -32,6 +32,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String gameOverBest(int score) {
+    return 'Best: $score';
+  }
+
+  @override
   String get playAgain => 'Play Again';
 
   @override
@@ -88,6 +93,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get themeSky => 'Sky';
 
   @override
+  String get themeNeon => 'Neon';
+
+  @override
   String get cancel => 'Cancel';
 
   @override
@@ -106,6 +114,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get continueGame => 'Continue';
+
+  @override
+  String get gameOverMainMenu => 'Main Menu';
 
   @override
   String get newGame => 'New game';
@@ -154,4 +165,23 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get aboutEndBody =>
       'The game ends when none of the available shapes can fit on the board. Leave anytime to save your progress and continue later.';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get sound => 'Sound';
+
+  @override
+  String get exitToMenu => 'Exit';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get privacyPolicyIntro =>
+      'This policy describes how Stackline handles information when you use the app.';
+
+  @override
+  String get privacyPolicyUpdated => 'Last updated: May 20, 2026';
 }

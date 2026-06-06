@@ -20,6 +20,15 @@ class LocalStorageService {
     await _prefs.setInt(GameConstants.highScoreKey, score);
   }
 
+  /// Persists [score] only when it beats the stored record.
+  /// Returns the effective high score (stored or new).
+  Future<int> updateHighScoreIfBetter(int score) async {
+    final current = getHighScore();
+    if (score <= current) return current;
+    await saveHighScore(score);
+    return score;
+  }
+
   bool getIsDarkMode() => _prefs.getBool(GameConstants.themeKey) ?? true;
 
   AppThemeVariant getThemeVariant() {
@@ -39,6 +48,13 @@ class LocalStorageService {
 
   Future<void> saveLocaleId(String id) async {
     await _prefs.setString(GameConstants.localeKey, id);
+  }
+
+  bool getSoundEnabled() =>
+      _prefs.getBool(GameConstants.soundEnabledKey) ?? true;
+
+  Future<void> saveSoundEnabled(bool enabled) async {
+    await _prefs.setBool(GameConstants.soundEnabledKey, enabled);
   }
 
   bool hasSavedGame() => _prefs.containsKey(GameConstants.savedGameKey);

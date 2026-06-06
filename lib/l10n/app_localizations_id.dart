@@ -32,6 +32,11 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
+  String gameOverBest(int score) {
+    return 'Terbaik: $score';
+  }
+
+  @override
   String get playAgain => 'Main Lagi';
 
   @override
@@ -88,6 +93,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get themeSky => 'Langit';
 
   @override
+  String get themeNeon => 'Neon';
+
+  @override
   String get cancel => 'Batal';
 
   @override
@@ -106,6 +114,9 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get continueGame => 'Lanjutkan';
+
+  @override
+  String get gameOverMainMenu => 'Menu utama';
 
   @override
   String get newGame => 'Permainan baru';
@@ -154,4 +165,23 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get aboutEndBody =>
       'Permainan berakhir saat tidak ada bentuk yang muat. Anda bisa keluar kapan saja dan menyimpan progres.';
+
+  @override
+  String get settingsTitle => 'Pengaturan';
+
+  @override
+  String get sound => 'Suara';
+
+  @override
+  String get exitToMenu => 'Keluar';
+
+  @override
+  String get privacyPolicy => 'Kebijakan Privasi';
+
+  @override
+  String get privacyPolicyIntro =>
+      'Kebijakan ini menjelaskan bagaimana Stackline menangani informasi saat Anda menggunakan aplikasi.';
+
+  @override
+  String get privacyPolicyUpdated => 'Terakhir diperbarui: 20 Mei 2026';
 }

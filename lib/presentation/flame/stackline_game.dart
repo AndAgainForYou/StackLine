@@ -98,7 +98,7 @@ class BoardRenderComponent extends PositionComponent with HasGameReference {
       isDark: theme.isDark,
       boardBackground: theme.boardBackground,
       gridColor: theme.gridColor,
-      clearFlash: clearFlash,
+      clearProgress: clearFlash,
     );
 
     painter.paint(canvas, Size(size.x, size.y));

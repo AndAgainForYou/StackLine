@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../entities/block_piece.dart';
 import '../entities/game_board.dart';
+import '../../core/constants/game_constants.dart';
 import '../../core/utils/board_layout.dart';
 
 class DragController {
@@ -20,6 +21,8 @@ class DragController {
       feedbackTopLeft: dragCenter,
       pieceWidth: piece.width,
       pieceHeight: piece.height,
+      anchorFractionX: GameConstants.dragAnchorFractionX,
+      anchorFractionY: GameConstants.dragAnchorFractionY,
     );
 
     if (board.canPlace(piece, snap.row, snap.col)) {

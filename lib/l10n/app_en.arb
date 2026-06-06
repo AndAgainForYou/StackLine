@@ -14,6 +14,14 @@
       }
     }
   },
+  "gameOverBest": "Best: {score}",
+  "@gameOverBest": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
   "playAgain": "Play Again",
   "retry": "Retry",
   "best": "Best",
@@ -39,6 +47,7 @@
   "themeRose": "Rose",
   "themeAmethyst": "Amethyst",
   "themeSky": "Sky",
+  "themeNeon": "Neon",
   "cancel": "Cancel",
   "exitGameTitle": "Leave game?",
   "exitGameMessage": "Your current score is {score}. Save your progress or discard it?",
@@ -52,6 +61,7 @@
   "exitGameSave": "Save progress",
   "exitGameDiscard": "Discard",
   "continueGame": "Continue",
+  "gameOverMainMenu": "Main Menu",
   "newGame": "New game",
   "howToPlay": "How to play",
   "aboutTitle": "About the game",
@@ -65,5 +75,11 @@
   "aboutScoreTitle": "Beat your record",
   "aboutScoreBody": "Every placement and every cleared line adds to your score. Your best result is saved automatically.",
   "aboutEndTitle": "Game over",
-  "aboutEndBody": "The game ends when none of the available shapes can fit on the board. Leave anytime to save your progress and continue later."
+  "aboutEndBody": "The game ends when none of the available shapes can fit on the board. Leave anytime to save your progress and continue later.",
+  "settingsTitle": "Settings",
+  "sound": "Sound",
+  "exitToMenu": "Exit",
+  "privacyPolicy": "Privacy Policy",
+  "privacyPolicyIntro": "This policy describes how Stackline handles information when you use the app.",
+  "privacyPolicyUpdated": "Last updated: May 20, 2026"
 }

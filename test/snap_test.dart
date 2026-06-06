@@ -8,7 +8,7 @@ import 'package:stackline/core/utils/board_layout.dart';
 /// Expected behaviour: the board cell under the finger always belongs to the piece.
 
 void main() {
-  const f = GameConstants.dragAnchorFraction; // 0.65
+  const f = GameConstants.dragAnchorFractionX; // 0.65
   const cellSize = 40.0;
   const boardTopLeft = Offset.zero;
 

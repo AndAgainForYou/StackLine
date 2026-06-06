@@ -8,6 +8,7 @@ import '../../../core/constants/game_constants.dart';
 import '../../../data/game_session_storage.dart';
 import '../../../data/local_storage_service.dart';
 import '../../../domain/entities/block_piece.dart';
+import '../../../domain/entities/game_board.dart';
 import '../../../domain/logic/drag_controller.dart';
 import '../../../domain/logic/line_clear_system.dart';
 import '../../../domain/logic/random_piece_generator.dart';
@@ -78,6 +79,34 @@ class GameCubit extends Cubit<GameState> {
     );
   }
 
+  /// Clears the board and refills pieces but keeps the current score.
+  /// Called after user watches the interstitial ad on the game-over screen.
+  Future<void> continueAfterGameOver() async {
+    if (state.status != GameStatus.gameOver) return;
+
+    _generator.restoreGenerationCount(0);
+    await _storage.clearSavedGame();
+
+    final batch = _generator.nextBatch(GameConstants.initialQueueSize);
+    emit(
+      GameState(
+        board: GameBoard.empty(),
+        trayPieces: batch.take(GameConstants.trayPieceCount).toList(),
+        previewPieces: batch
+            .skip(GameConstants.trayPieceCount)
+            .take(GameConstants.previewCount)
+            .toList(),
+        score: state.score,
+        highScore: state.highScore,
+        comboMultiplier: 1.0,
+        status: GameStatus.playing,
+        difficultyLevel: 0,
+        animationSpeed: 1.0,
+        placementsCount: 0,
+      ),
+    );
+  }
+
   Future<void> continueSavedGame() async {
     final saved = _storage.loadSavedGame();
     if (saved == null) {
@@ -93,8 +122,10 @@ class GameCubit extends Cubit<GameState> {
   Future<void> saveProgressAndExit() async {
     if (state.status == GameStatus.gameOver) return;
 
+    final highScore = await _persistHighScore(state.score, state.highScore);
+
     final session = SavedGameSession.fromState(
-      state: state,
+      state: state.copyWith(highScore: highScore),
       sessionStartHighScore: _sessionStartHighScore,
       piecesGenerated: _generator.piecesGenerated,
     );
@@ -102,8 +133,13 @@ class GameCubit extends Cubit<GameState> {
   }
 
   Future<void> discardProgressAndExit() async {
-    await _storage.saveHighScore(_sessionStartHighScore);
+    await _persistHighScore(state.score, state.highScore);
     await _storage.clearSavedGame();
+  }
+
+  Future<int> _persistHighScore(int score, int currentHighScore) async {
+    final best = await _storage.updateHighScoreIfBetter(score);
+    return best > currentHighScore ? best : currentHighScore;
   }
 
   void startDrag(String pieceId) {
@@ -242,7 +278,7 @@ class GameCubit extends Cubit<GameState> {
         ),
       );
 
-      _sound.playClear();
+      _sound.playClear(linesCleared: clearResult.totalLines);
       await _vibrate(clearResult.totalLines);
 
       final clearDuration = _scaledDuration(GameConstants.lineClearDuration);
@@ -273,11 +309,7 @@ class GameCubit extends Cubit<GameState> {
     final difficulty = (_generator.piecesGenerated / 15).floor();
     final animSpeed = (1.0 + difficulty * 0.08).clamp(1.0, 2.0);
 
-    var highScore = state.highScore;
-    if (score > highScore) {
-      highScore = score;
-      await _storage.saveHighScore(highScore);
-    }
+    final highScore = await _persistHighScore(score, state.highScore);
 
     final canContinue = board.hasAnyValidPlacement(nextTray);
 
@@ -302,6 +334,7 @@ class GameCubit extends Cubit<GameState> {
     );
 
     if (!canContinue) {
+      await _persistHighScore(score, highScore);
       await _storage.clearSavedGame();
       _sound.playGameOver();
       await _vibrate(2);

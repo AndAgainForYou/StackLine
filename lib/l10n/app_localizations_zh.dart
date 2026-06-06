@@ -32,6 +32,11 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String gameOverBest(int score) {
+    return '最高分：$score';
+  }
+
+  @override
   String get playAgain => '再玩一次';
 
   @override
@@ -88,6 +93,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get themeSky => '天空';
 
   @override
+  String get themeNeon => 'Neon';
+
+  @override
   String get cancel => '取消';
 
   @override
@@ -106,6 +114,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get continueGame => '继续游戏';
+
+  @override
+  String get gameOverMainMenu => '主菜单';
 
   @override
   String get newGame => '新游戏';
@@ -149,6 +160,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get aboutEndBody => '当没有方块可以放置时游戏结束。可随时退出并保存进度。';
+
+  @override
+  String get settingsTitle => '设置';
+
+  @override
+  String get sound => '声音';
+
+  @override
+  String get exitToMenu => '退出';
+
+  @override
+  String get privacyPolicy => '隐私政策';
+
+  @override
+  String get privacyPolicyIntro => '本政策说明 Stackline 在您使用应用时如何处理信息。';
+
+  @override
+  String get privacyPolicyUpdated => '最后更新：2026年5月20日';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -176,6 +205,11 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   @override
   String gameOverScore(int score) {
     return '分數：$score';
+  }
+
+  @override
+  String gameOverBest(int score) {
+    return '最高分：$score';
   }
 
   @override
@@ -235,6 +269,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get themeSky => '天空';
 
   @override
+  String get themeNeon => 'Neon';
+
+  @override
   String get cancel => '取消';
 
   @override
@@ -253,6 +290,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get continueGame => '繼續遊戲';
+
+  @override
+  String get gameOverMainMenu => '主選單';
 
   @override
   String get newGame => '新遊戲';
@@ -296,4 +336,22 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get aboutEndBody => '當沒有方塊可以放置時遊戲結束。可隨時退出並儲存進度。';
+
+  @override
+  String get settingsTitle => '設定';
+
+  @override
+  String get sound => '聲音';
+
+  @override
+  String get exitToMenu => '退出';
+
+  @override
+  String get privacyPolicy => '隱私權政策';
+
+  @override
+  String get privacyPolicyIntro => '本政策說明 Stackline 在您使用應用程式時如何處理資訊。';
+
+  @override
+  String get privacyPolicyUpdated => '最後更新：2026年5月20日';
 }

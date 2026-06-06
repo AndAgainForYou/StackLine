@@ -173,6 +173,12 @@ abstract class AppLocalizations {
   /// **'Score: {score}'**
   String gameOverScore(int score);
 
+  /// No description provided for @gameOverBest.
+  ///
+  /// In en, this message translates to:
+  /// **'Best: {score}'**
+  String gameOverBest(int score);
+
   /// No description provided for @playAgain.
   ///
   /// In en, this message translates to:
@@ -281,6 +287,12 @@ abstract class AppLocalizations {
   /// **'Sky'**
   String get themeSky;
 
+  /// No description provided for @themeNeon.
+  ///
+  /// In en, this message translates to:
+  /// **'Neon'**
+  String get themeNeon;
+
   /// No description provided for @cancel.
   ///
   /// In en, this message translates to:
@@ -316,6 +328,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue'**
   String get continueGame;
+
+  /// No description provided for @gameOverMainMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Main Menu'**
+  String get gameOverMainMenu;
 
   /// No description provided for @newGame.
   ///
@@ -400,6 +418,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The game ends when none of the available shapes can fit on the board. Leave anytime to save your progress and continue later.'**
   String get aboutEndBody;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// No description provided for @sound.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound'**
+  String get sound;
+
+  /// No description provided for @exitToMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit'**
+  String get exitToMenu;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @privacyPolicyIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'This policy describes how Stackline handles information when you use the app.'**
+  String get privacyPolicyIntro;
+
+  /// No description provided for @privacyPolicyUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: May 20, 2026'**
+  String get privacyPolicyUpdated;
 }
 
 class _AppLocalizationsDelegate

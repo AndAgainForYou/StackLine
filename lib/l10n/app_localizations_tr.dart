@@ -33,6 +33,11 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String gameOverBest(int score) {
+    return 'En iyi: $score';
+  }
+
+  @override
   String get playAgain => 'Tekrar Oyna';
 
   @override
@@ -89,6 +94,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get themeSky => 'Gökyüzü';
 
   @override
+  String get themeNeon => 'Neon';
+
+  @override
   String get cancel => 'İptal';
 
   @override
@@ -107,6 +115,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get continueGame => 'Devam et';
+
+  @override
+  String get gameOverMainMenu => 'Ana menü';
 
   @override
   String get newGame => 'Yeni oyun';
@@ -155,4 +166,23 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get aboutEndBody =>
       'Hiçbir şekil sığmadığında oyun biter. İstediğiniz zaman çıkıp ilerlemenizi kaydedebilirsiniz.';
+
+  @override
+  String get settingsTitle => 'Ayarlar';
+
+  @override
+  String get sound => 'Ses';
+
+  @override
+  String get exitToMenu => 'Çıkış';
+
+  @override
+  String get privacyPolicy => 'Gizlilik Politikası';
+
+  @override
+  String get privacyPolicyIntro =>
+      'Bu politika, Stackline\'ın uygulamayı kullanırken bilgileri nasıl işlediğini açıklar.';
+
+  @override
+  String get privacyPolicyUpdated => 'Son güncelleme: 20 Mayıs 2026';
 }

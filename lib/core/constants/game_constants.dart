@@ -10,8 +10,11 @@ class GameConstants {
   static const double trayMaxCellSize = 34;
   static const double trayMinCellSize = 14;
 
-  /// Fraction of the piece size where the finger anchors the drag (0 = top-left, 1 = bottom-right).
-  static const double dragAnchorFraction = 0.85;
+  /// Horizontal anchor: 0.5 = piece centred on finger.
+  static const double dragAnchorFractionX = 1.2;
+
+  /// Vertical anchor: 1.0 = piece sits entirely above the finger.
+  static const double dragAnchorFractionY = 1.2;
 
   static const int baseLineScore = 100;
   static const double comboMultiplierStep = 0.5;
@@ -24,4 +27,5 @@ class GameConstants {
   static const String themeVariantKey = 'stackline_theme_variant';
   static const String localeKey = 'stackline_locale';
   static const String savedGameKey = 'stackline_saved_game';
+  static const String soundEnabledKey = 'stackline_sound_enabled';
 }

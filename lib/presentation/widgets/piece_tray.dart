@@ -46,8 +46,8 @@ class DraggablePiece extends StatelessWidget {
       data: piece,
       maxSimultaneousDrags: 1,
       dragAnchorStrategy: (_, __, ___) => Offset(
-        boardWidth * GameConstants.dragAnchorFraction,
-        boardHeight * GameConstants.dragAnchorFraction,
+        boardWidth * GameConstants.dragAnchorFractionX,
+        boardHeight * GameConstants.dragAnchorFractionY,
       ),
       feedback: Material(
         color: Colors.transparent,

@@ -32,6 +32,11 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String gameOverBest(int score) {
+    return '최고 점수: $score';
+  }
+
+  @override
   String get playAgain => '다시 하기';
 
   @override
@@ -88,6 +93,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get themeSky => '스카이';
 
   @override
+  String get themeNeon => 'Neon';
+
+  @override
   String get cancel => '취소';
 
   @override
@@ -106,6 +114,9 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get continueGame => '이어하기';
+
+  @override
+  String get gameOverMainMenu => '메인 메뉴';
 
   @override
   String get newGame => '새 게임';
@@ -151,4 +162,23 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get aboutEndBody =>
       '놓을 수 있는 블록이 없으면 게임이 끝납니다. 언제든 나가서 진행 상황을 저장할 수 있습니다.';
+
+  @override
+  String get settingsTitle => '설정';
+
+  @override
+  String get sound => '소리';
+
+  @override
+  String get exitToMenu => '종료';
+
+  @override
+  String get privacyPolicy => '개인정보 처리방침';
+
+  @override
+  String get privacyPolicyIntro =>
+      '이 정책은 Stackline이 앱 사용 시 정보를 어떻게 처리하는지 설명합니다.';
+
+  @override
+  String get privacyPolicyUpdated => '최종 업데이트: 2026년 5월 20일';
 }
